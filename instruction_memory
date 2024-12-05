@@ -1,39 +1,101 @@
 module instruction_memory(
-  	input [4:0] A,        
+  	input [31:0] A,        
     output reg [31:0] RD       
 );
- 	  reg [7:0] memoria [31:0];  // Declaração da memória de instruções
+ 	  reg [7:0] memoria [64:0];  // Declaração da memória de instruções
 
     initial begin
-        memoria[0] = 8'b00100000;  // addi $a0, $zero, 10
-        memoria[1] = 8'b00000010;  // 00000010
-        memoria[2] = 8'b00000000;  // 00000000
-        memoria[3] = 8'b00001010;  // 00001010
-        
-        memoria[4] = 8'b00100000;  // addi $t0, $zero, 1
-        memoria[5] = 8'b00000100;  // 00000100
-        memoria[6] = 8'b00000000;  // 00000000
-        memoria[7] = 8'b00000001;  // 00000001
-        
-        memoria[8]  = 8'b00010001; // beq $t0, $a0, 3
-        memoria[9]  = 8'b00000100; // 00000100
-        memoria[10] = 8'b00000000; // 00000000
-        memoria[11] = 8'b00000011; // 00000011
-        
-        memoria[12] = 8'b00100001; // addi $t0, $t0, 1
-        memoria[13] = 8'b00001000; // 00001000
-        memoria[14] = 8'b00000000; // 00000000
-        memoria[15] = 8'b00000001; // 00000001
-        
-        memoria[16] = 8'b00001000; // j loop
-        memoria[17] = 8'b00000000; // 00000000
-        memoria[18] = 8'b00000000; // 00000000
-        memoria[19] = 8'b00000001; // 00000001
-        
-        memoria[20] = 8'b00000000; // nop
-        memoria[21] = 8'b00000000; // 00000000
-        memoria[22] = 8'b00000000; // 00000000
-        memoria[23] = 8'b00000000; // 00000000
+memoria[0] = 8'b00100000;  //addi
+      memoria[1] = 8'b00000001;  //addi
+      memoria[2] = 8'b00000000;  //addi
+      memoria[3] = 8'b00001010;  //addi
+
+      memoria[4] = 8'b00100000;  //addi
+      memoria[5] = 8'b00000010;  //addi
+      memoria[6] = 8'b00000000;  //addi
+      memoria[7] = 8'b00010100;  //addi
+
+      memoria[8] = 8'b00100000;  //addi
+      memoria[9] = 8'b00000011;  //addi
+      memoria[10] = 8'b00000000;  //addi
+      memoria[11] = 8'b00110010;  //addi
+
+      memoria[12] = 8'b00100000;  //addi
+      memoria[13] = 8'b00000100;  //addi
+      memoria[14] = 8'b00000000;  //addi
+      memoria[15] = 8'b00000000;  //addi
+
+      memoria[16] = 8'b10101100;  //sw
+      memoria[17] = 8'b00000001;  //sw
+      memoria[18] = 8'b00000000;  //sw
+      memoria[19] = 8'b00000001;  //sw
+
+      memoria[20] = 8'b10101100;  //sw
+      memoria[21] = 8'b00000010;  //sw
+      memoria[22] = 8'b00000000;  //sw
+      memoria[23] = 8'b00000010;  //sw
+
+      memoria[24] = 8'b10101100;  //sw
+      memoria[25] = 8'b00000011;  //sw
+      memoria[26] = 8'b00000000;  //sw
+      memoria[27] = 8'b00000011;  //sw
+
+      memoria[28] = 8'b10101100;  //sw
+      memoria[29] = 8'b00000100;  //sw
+      memoria[30] = 8'b00000000;  //sw
+      memoria[31] = 8'b00000100;  //sw
+
+      memoria[32] = 8'b10001100;  //lw
+      memoria[33] = 8'b00000001;  //lw
+      memoria[34] = 8'b00000000;  //lw
+      memoria[35] = 8'b00000001;  //lw
+
+      memoria[36] = 8'b10001100;  //lw
+      memoria[37] = 8'b00000010;  //lw
+      memoria[38] = 8'b00000000;  //lw
+      memoria[39] = 8'b00000010;  //lw
+
+      memoria[40] = 8'b10001100;  //lw
+      memoria[41] = 8'b00000011;  //lw
+      memoria[42] = 8'b00000000;  //lw
+      memoria[43] = 8'b00000011;  //lw
+
+      memoria[44] = 8'b10001100;  //lw
+      memoria[45] = 8'b00000100;  //lw
+      memoria[46] = 8'b00000000;  //lw
+      memoria[47] = 8'b00000100;  //lw
+
+      memoria[48] = 8'b00000000;  //add
+      memoria[49] = 8'b00100010;  //add
+      memoria[50] = 8'b00001000;  //add
+      memoria[51] = 8'b00100000;  //add
+
+      memoria[52] = 8'b00100000;  //addi
+      memoria[53] = 8'b10000100;  //addi
+      memoria[54] = 8'b00000000;  //addi
+      memoria[55] = 8'b00000001;  //addi
+
+      memoria[56] = 8'b10101100;  //sw
+      memoria[57] = 8'b00000001;  //sw
+      memoria[58] = 8'b00000000;  //sw
+      memoria[59] = 8'b00000001;  //sw
+
+      memoria[60] = 8'b10101100;  //sw
+      memoria[61] = 8'b00000100;  //sw
+      memoria[62] = 8'b00000000;  //sw
+      memoria[63] = 8'b00000100;  //sw
+
+      memoria[64] = 8'b00010000;  //beq
+      memoria[65] = 8'b00100011;  //beq
+      memoria[66] = 8'b00000000;  //beq
+      memoria[67] = 8'b11111111;  //beq
+
+
+      memoria[68] = 8'b00010000;  //beq
+      memoria[69] = 8'b00000000;  //beq
+      memoria[70] = 8'b11111111;  //beq
+      memoria[71] = 8'b11110110;  //beq
+
     end
 
   always @(A) begin

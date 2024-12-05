@@ -1,9 +1,9 @@
 module ALU(
   input [2:0] aluControl, 
-  input [31:0] srcA, 
-  input [31:0] srcB, 
+  input signed [31:0] srcA, 
+  input signed [31:0] srcB, 
   output zero, 
-  output [31:0] aluResult 
+  output signed [31:0] aluResult 
 );
 
   parameter ADD = 3'b010; 

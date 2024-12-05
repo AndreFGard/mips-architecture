@@ -1,9 +1,8 @@
-
 module pc_mux (
-  input [4:0] plus4_instr, 
-  input [4:0] branch, 
+  input signed [31:0] plus4_instr, 
+  input signed [31:0] branch, 
   input use_branch, 
-  output [4:0] next_instr 
+  output signed[31:0] next_instr 
 );
 
   assign next_instr = (use_branch) ? branch : plus4_instr;

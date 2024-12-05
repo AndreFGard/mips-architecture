@@ -20,119 +20,92 @@ module pc_branch(
 endmodule;
 module data_memory (
   input clk,
-  input signed [31:0] A,
-  input signed [31:0] WD,
+  input [31:0] A,
+  input [31:0] WD,
   input WE,
-  output reg signed [31:0] RD
+  output reg [31:0] RD
 );
-  reg signed[31:0] Mem [31:0];
+  reg [31:0] Mem [31:0];
   
-  always @ (clk) begin
+  always @ (posedge clk) begin
     if (WE)
       Mem[A] <= WD; 
     else
       RD <= Mem[A];
   end
 endmodule;
-
 module instruction_memory(
   	input [31:0] A,        
     output reg [31:0] RD       
 );
-  reg [7:0] memoria [72:0];  // Declaração da memória de instruções
+ 	  reg [7:0] memoria [64:0];  // Declaração da memória de instruções
 
     initial begin
-      // addi reg[1] (at), $zero, 10 (add valor 10 ao reg[1]) 001000 00000 00001  00000000 00001010
+      // memoria[0] = 8'b00100000;  //addi
+      // memoria[1] = 8'b00000001;  //addi
+      //  memoria[2] = 8'b00000000;  //addi
+      //  memoria[3] = 8'b00001010;  //addi
+
       memoria[0] = 8'b00100000;  //addi
       memoria[1] = 8'b00000001;  //addi
-      memoria[2] = 8'b00000000;  //addi
-      memoria[3] = 8'b00001010;  //addi
-
-      memoria[4] = 8'b00100000;  //addi
-      memoria[5] = 8'b00000010;  //addi
-      memoria[6] = 8'b00000000;  //addi
-      memoria[7] = 8'b00010100;  //addi
-
-      memoria[8] = 8'b00100000;  //addi
-      memoria[9] = 8'b00000011;  //addi
-      memoria[10] = 8'b00000000;  //addi
-      memoria[11] = 8'b00110010;  //addi
-
-      memoria[12] = 8'b00100000;  //addi
-      memoria[13] = 8'b00000100;  //addi
-      memoria[14] = 8'b00000000;  //addi
-      memoria[15] = 8'b00000000;  //addi
-
-      memoria[16] = 8'b10101100;  //sw
-      memoria[17] = 8'b00000001;  //sw
-      memoria[18] = 8'b00000000;  //sw
-      memoria[19] = 8'b00000001;  //sw
-
-      memoria[20] = 8'b10101100;  //sw
-      memoria[21] = 8'b00000010;  //sw
-      memoria[22] = 8'b00000000;  //sw
-      memoria[23] = 8'b00000010;  //sw
-
-      memoria[24] = 8'b10101100;  //sw
-      memoria[25] = 8'b00000011;  //sw
-      memoria[26] = 8'b00000000;  //sw
-      memoria[27] = 8'b00000011;  //sw
-
-      memoria[28] = 8'b10101100;  //sw
-      memoria[29] = 8'b00000100;  //sw
-      memoria[30] = 8'b00000000;  //sw
-      memoria[31] = 8'b00000100;  //sw
-
-      memoria[32] = 8'b10001100;  //lw
-      memoria[33] = 8'b00000001;  //lw
-      memoria[34] = 8'b00000000;  //lw
-      memoria[35] = 8'b00000001;  //lw
-
-      memoria[36] = 8'b10001100;  //lw
-      memoria[37] = 8'b00000010;  //lw
-      memoria[38] = 8'b00000000;  //lw
-      memoria[39] = 8'b00000010;  //lw
-
-      memoria[40] = 8'b10001100;  //lw
-      memoria[41] = 8'b00000011;  //lw
-      memoria[42] = 8'b00000000;  //lw
-      memoria[43] = 8'b00000011;  //lw
-
-      memoria[44] = 8'b10001100;  //lw
-      memoria[45] = 8'b00000100;  //lw
-      memoria[46] = 8'b00000000;  //lw
-      memoria[47] = 8'b00000100;  //lw
-
-      memoria[48] = 8'b00000000;  //add
-      memoria[49] = 8'b00100010;  //add
-      memoria[50] = 8'b00001000;  //add
-      memoria[51] = 8'b00100000;  //add
-
-      memoria[52] = 8'b00100000;  //addi
-      memoria[53] = 8'b10000100;  //addi
-      memoria[54] = 8'b00000000;  //addi
-      memoria[55] = 8'b00000001;  //addi
-
-      memoria[56] = 8'b10101100;  //sw
-      memoria[57] = 8'b00000001;  //sw
-      memoria[58] = 8'b00000000;  //sw
-      memoria[59] = 8'b00000001;  //sw
-
-      memoria[60] = 8'b10101100;  //sw
-      memoria[61] = 8'b00000100;  //sw
-      memoria[62] = 8'b00000000;  //sw
-      memoria[63] = 8'b00000100;  //sw
-
-      memoria[64] = 8'b00010000;  //beq
-      memoria[65] = 8'b00100011;  //beq
-      memoria[66] = 8'b00000000;  //beq
-      memoria[67] = 8'b11111111;  //beq
+       memoria[2] = 8'b10101011;  //addi
+       memoria[3] = 8'b11100110;  //addi
 
 
-      memoria[68] = 8'b00010000;  //beq
-      memoria[69] = 8'b00000000;  //beq
-      memoria[70] = 8'b11111111;  //beq
-      memoria[71] = 8'b11110110;  //beq
+
+      // memoria[4] = 8'b00100000;  //addi
+      // memoria[5] = 8'b00000010;  //addi
+      // memoria[6] = 8'b00000000;  //addi
+      // memoria[7] = 8'b00010100;  //addi
+
+      // memoria[8] = 8'b00100000;  //addi
+      // memoria[9] = 8'b00000110;  //addi
+      // memoria[10] = 8'b00000000;  //addi
+      // memoria[11] = 8'b00110010;  //addi
+
+      // memoria[12] = 8'b10101100;  //sw
+      // memoria[13] = 8'b00000001;  //sw
+      // memoria[14] = 8'b00000000;  //sw
+      // memoria[15] = 8'b00000001;  //sw
+
+      // memoria[16] = 8'b10101100;  //sw
+      // memoria[17] = 8'b00000010;  //sw
+      // memoria[18] = 8'b00000000;  //sw
+      // memoria[19] = 8'b00000010;  //sw
+
+      // memoria[20] = 8'b10001100;  //lw
+      // memoria[21] = 8'b00000011;  //lw
+      // memoria[22] = 8'b00000000;  //lw
+      // memoria[23] = 8'b00000001;  //lw
+
+      // memoria[24] = 8'b10001100;  //lw
+      // memoria[25] = 8'b00000100;  //lw
+      // memoria[26] = 8'b00000000;  //lw
+      // memoria[27] = 8'b00000010;  //lw
+
+      // memoria[28] = 8'b00000000;  //add
+      // memoria[29] = 8'b01100100;  //add
+      // memoria[30] = 8'b00101000;  //add
+      // memoria[31] = 8'b00100000;  //add
+
+      // memoria[32] = 8'b10101100;  //sw
+      // memoria[33] = 8'b00000101;  //sw
+      // memoria[34] = 8'b00000000;  //sw
+      // memoria[35] = 8'b00000001;  //sw
+
+      // memoria[36] = 8'b00010000;  //beq
+      // memoria[37] = 8'b10100110;  //beq
+      // memoria[38] = 8'b00000000;  //beq
+      // memoria[39] = 8'b00000000;  //beq to the end of the program
+
+      // memoria[40] = 8'b00010000;  //beq
+      // memoria[41] = 8'b00000000;  //beq
+      // memoria[42] = 8'b11111111;  //beq
+      // memoria[43] = 8'b11101100;  //beq
+
+
+
+
 
     end
 
@@ -157,10 +130,10 @@ module mem_to_reg_mux(
 endmodule;
 module ALU(
   input [2:0] aluControl, 
-  input signed [31:0] srcA, 
-  input signed [31:0] srcB, 
+  input [31:0] srcA, 
+  input [31:0] srcB, 
   output zero, 
-  output signed [31:0] aluResult 
+  output [31:0] aluResult 
 );
 
   parameter ADD = 3'b010; 
@@ -290,14 +263,14 @@ module register_file(
   input [4:0] a1,        // endereço da leitura 1
   input [4:0] a2,        // endereço da leitura 2
   input [4:0] a3,        // endereço da escrita
-  input signed [31:0] WD3,      // dados para escrita
+  input [31:0] WD3,      // dados para escrita
   input WE3,             // habilitação para escrita
   input clk,             // sinal de clock
-  output signed [31:0] RD1,    // dados lidos 1
-  output signed [31:0] RD2     // dados lidos 2
+  output [31:0] RD1,    // dados lidos 1
+  output [31:0] RD2     // dados lidos 2
 );
 
-  reg signed [31:0] registers [0:31];  // array de registradores de 32 bits
+  reg [31:0] registers [0:31];  // array de registradores de 32 bits
 
   // Leitura dos registradores
   assign RD1 = (a1 == 0) ? 32'd0 : registers[a1];
@@ -340,15 +313,18 @@ module reg_dst_mux(
 
 endmodule;
 module Sign_Extend(
-  input signed [15:0] instr,
-  output signed [31:0] SignImm
+  input [15:0] instr,
+  output reg [31:0] SignImm
 );
   
-  assign SignImm = instr[15] ? {16'b1111111111111111, instr} : {16'b0, instr};
+  always @* begin
+    if (instr[15] == 1'b0)
+      SignImm = {16'b0, instr}; 
+    else
+      SignImm = {16'b1111111111111111, instr};
+  end
   
-endmodule
-
-
+endmodule;
 module pc(
   input [31:0] next_instr, 
   input clk, 
